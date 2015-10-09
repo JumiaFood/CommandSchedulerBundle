@@ -51,13 +51,6 @@ class ScheduledCommandType extends AbstractType
         );
 
         $builder->add(
-            'logFile', 'text', array(
-                'label'    => 'detail.logFile',
-                'required' => true
-            )
-        );
-
-        $builder->add(
             'priority', 'integer', array(
                 'label'      => 'detail.priority',
                 'empty_data' => 0,

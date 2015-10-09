@@ -161,11 +161,7 @@ class ExecuteCommand extends ContainerAwareCommand
             $scheduledCommand->getArguments(true)
         ));
 
-        // Use a StreamOutput to redirect write() and writeln() in a log file
-        $logOutput = new StreamOutput(fopen(
-            $this->getContainer()->getParameter('jmose_command_scheduler.log_path') .
-            $scheduledCommand->getLogFile(), 'a', false
-        ));
+        $logOutput = new \Symfony\Component\Console\Output\NullOutput();
         $logOutput->setVerbosity($this->commandsVerbosity);
 
         // Execute command and get return code

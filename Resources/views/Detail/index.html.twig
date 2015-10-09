@@ -17,7 +17,6 @@
         {{ form_row( scheduledCommandForm.command, {'attr': styleConfiguration } ) }}
         {{ form_row( scheduledCommandForm.arguments, {'attr': styleConfiguration|merge({'placeholder': '--argument1=foo --bar'}) } ) }}
         {{ form_row( scheduledCommandForm.cronExpression, {'attr': styleConfiguration|merge({'placeholder': '*/10 * * * *'}) } ) }}
-        {{ form_row( scheduledCommandForm.logFile, {'attr': styleConfiguration|merge({'placeholder': 'myFile.log'}) } ) }}
         {{ form_row( scheduledCommandForm.priority, {'attr': styleConfiguration } ) }}
         <div>
             {{ form_widget( scheduledCommandForm.executeImmediately ) }}
