@@ -62,8 +62,9 @@ class ExecuteCommand extends ContainerAwareCommand
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->dumpMode = $input->getOption('dump');
-        $this->logPath = rtrim($this->getContainer()->getParameter('jmose_command_scheduler.log_path'), '/\\');
-        $this->logPath .= DIRECTORY_SEPARATOR;
+
+        $logPath = $this->getContainer()->getParameter('jmose_command_scheduler.log_path');
+        $this->logPath = $logPath === null ? $logPath : (rtrim($logPath, '/\\') . DIRECTORY_SEPARATOR);
 
         // store the original verbosity before apply the quiet parameter
         $this->commandsVerbosity = $output->getVerbosity();
@@ -87,7 +88,7 @@ class ExecuteCommand extends ContainerAwareCommand
         $output->writeln('<info>Start : ' . ($this->dumpMode ? 'Dump' : 'Execute') . ' all scheduled command</info>');
 
         // Before continue, we check that the output file is valid and writable (except for gaufrette)
-        if (strpos($this->logPath, 'gaufrette:') !== 0 && false === is_writable($this->logPath)) {
+        if ($this->logPath !== null && strpos($this->logPath, 'gaufrette:') !== 0 && false === is_writable($this->logPath)) {
             $output->writeln(
                 '<error>'.$this->logPath.
                 ' not found or not writable. You should override `log_path` in your config.yml'.'</error>'
